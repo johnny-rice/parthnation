@@ -1,0 +1,17 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="256" fill="#ea580c"/>
+  
+  <!-- Basketball Design -->
+  <circle cx="256" cy="256" r="180" fill="#f97316" stroke="#fef3c7" stroke-width="4"/>
+  
+  <!-- Basketball Lines -->
+  <path d="M 76 256 Q 256 230 436 256" stroke="#fef3c7" stroke-width="3" fill="none"/>
+  <path d="M 76 256 Q 256 282 436 256" stroke="#fef3c7" stroke-width="3" fill="none"/>
+  <path d="M 256 76 Q 230 256 256 436" stroke="#fef3c7" stroke-width="3" fill="none"/>
+  <path d="M 256 76 Q 282 256 256 436" stroke="#fef3c7" stroke-width="3" fill="none"/>
+  
+  <!-- Heart Symbol in Center -->
+  <path d="M256,220 C256,220 226,190 196,190 C166,190 151,205 151,235 C151,280 256,340 256,340 C256,340 361,280 361,235 C361,205 346,190 316,190 C286,190 256,220 256,220 Z" fill="#fef3c7"/>
+</svg>
+

@@ -1,0 +1,11 @@
+# robots.txt for Parth Nation
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://parthnation.com/sitemap.xml
+
+# Common crawl delays (optional)
+Crawl-delay: 1
+

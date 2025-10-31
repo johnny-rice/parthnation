@@ -63,12 +63,12 @@ export default function Home() {
             showHeroText ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         >
-          <h1 className="text-7xl md:text-7xl lg:text-8xl font-bold text-white mb-6 text-balance">Parth Nation</h1>
+          <h1 className="text-7xl md:text-7xl font-extrabold text-white mb-6 text-balance">Parth Nation</h1>
           <p className="text-3xl md:text-3xl lg:text-4xl text-amber-100 mb-4 text-balance">
             Honoring the Heart 
             <br />of Charlton Basketball
           </p>
-          <p className="text-xl md:text-xl lg:text-2xl text-stone-200 mb-8 max-w-3xl mx-auto text-pretty">
+          <p className="text-xl md:text-2xl text-stone-200 mb-8 max-w-3xl mx-auto text-pretty font-extrabold">
             We remember Parth 
             <br />by continuing the love he shared 
             <br />on and off the court.
@@ -148,20 +148,24 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <Card className="bg-slate-800 border-slate-700 p-6">
-              <Calendar className="w-10 h-10 text-orange-500 mb-4" />
-              <h3 className="text-2xl font-bold mb-3 text-white">When</h3>
+              <div className="flex items-center gap-3 mb-3">
+                <Calendar className="w-6 h-6 text-orange-500 shrink-0" />
+                <h3 className="text-2xl font-bold text-white">When</h3>
+              </div>
               <p className="text-stone-300 text-lg">
-                Saturday, TBD 2025
+                Saturday, November 29th, 2025
                 <br />
-                9:00 AM - 5:00 PM
+                12:00 PM - 3:00 PM
               </p>
             </Card>
 
             <Card className="bg-slate-800 border-slate-700 p-6">
-              <MapPin className="w-10 h-10 text-orange-500 mb-4" />
-              <h3 className="text-2xl font-bold mb-3 text-white">Where</h3>
+              <div className="flex items-center gap-3 mb-3">
+                <MapPin className="w-6 h-6 text-orange-500 shrink-0" />
+                <h3 className="text-2xl font-bold text-white">Where</h3>
+              </div>
               <p className="text-stone-300 text-lg">
-                Charlton Location TBD
+                Charlton Area Basketball Court, Location TBD
                 <br />
                 <br />
                 Charlton, MA
@@ -169,14 +173,18 @@ export default function Home() {
             </Card>
 
             <Card className="bg-slate-800 border-slate-700 p-6">
-              <Users className="w-10 h-10 text-orange-500 mb-4" />
-              <h3 className="text-2xl font-bold mb-3 text-white">Format</h3>
+              <div className="flex items-center gap-3 mb-3">
+                <Users className="w-6 h-6 text-orange-500 shrink-0" />
+                <h3 className="text-2xl font-bold text-white">Format</h3>
+              </div>
               <p className="text-stone-300 text-lg">
-                5v5 Pickup Games
+                3v3 Pickup Games
                 <br />
                 All skill levels welcome
                 <br />
-                Teams of 6-8 players
+                Teams of 3 or more players
+                <br />
+                Individuals will be assigned to teams
               </p>
             </Card>
           </div>
@@ -187,15 +195,15 @@ export default function Home() {
               <p className="text-pretty">
                 <strong className="text-white">Registration:</strong> Open to all community members. Teams can register
                 together or individuals can sign up and be placed on a team. Registration fee is $10 per player, with
-                all proceeds going to local mental health services.
+                all proceeds going to Kyle Cares Inc to support mental health awareness and support services.
               </p>
               <p className="text-pretty">
-                <strong className="text-white">Schedule:</strong> Games run throughout the day with breaks for food,
-                music, and community time. Finals and awards ceremony at 4:00 PM.
+                <strong className="text-white">Schedule:</strong> Games run throughout the time of the tournament. 
+                Finals and awards ceremony at 2:45 PM.
               </p>
               <p className="text-pretty">
                 <strong className="text-white">Purpose:</strong> This tournament is about more than basketball. We are
-                raising funds for mental health awareness programs and local support services. Every game played honors
+                raising funds for mental health awareness and local support services. Every game played honors
                 Parth's memory and helps our community.
               </p>
               <p className="text-pretty">
@@ -415,11 +423,15 @@ export default function Home() {
             </Card>
           </div>
           <div className="text-center mt-12">
-            <p className="text-xl text-white text-pretty">
-              This is about coming together in whatever way feels right for you.
+            <p className="text-2xl text-white text-pretty text-extrabold">
+              This is about coming together 
+              <br />in whatever way feels right for you.
             </p>
-            <p className="text-xl text-white text-pretty">
-              Every bit of support, big or small, helps us honor Parth and care for our community.
+            <p className="text-2xl text-white text-pretty text-extrabold">
+              Every bit of support, 
+              <br />big or small, 
+              <br />helps us honor Parth 
+              <br />and care for our community.
             </p>
           </div>
         </div>

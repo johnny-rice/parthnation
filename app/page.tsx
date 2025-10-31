@@ -15,33 +15,47 @@ export default function Home() {
       </a>
 
       {/* Header Section */}
-      <header className="relative h-[85vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-linear-to-b from-slate-900/60 to-slate-900/40 z-10" />
-        <Image
-          src="/basketball-player-in-action-on-outdoor-court--dyna.jpg"
-          alt="Basketball player in action on outdoor court - representing Parth's passion for the game"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
+      <header className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+        {/* Repeating background image for larger screens */}
+        <div 
+          className="absolute inset-0 hidden md:block"
+          style={{
+            backgroundImage: 'url(/parth_nation/photo1.png)',
+            backgroundRepeat: 'repeat',
+            backgroundSize: '400px 400px',
+            backgroundPosition: 'center'
+          }}
         />
-        <div className="relative z-20 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 text-balance">Parth Nation</h1>
-          <p className="text-2xl md:text-3xl text-amber-100 mb-4 text-balance">
-            Honoring the Heart of Charlton Basketball
+        <div className="absolute inset-0 bg-linear-to-b from-slate-900/60 to-slate-900/40 z-10" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover object-center md:object-contain md:object-center z-10"
+        >
+          <source src="/parth_nation/video.mp4" type="video/mp4" />
+        </video>
+        <div className="relative z-20 text-center px-6 max-w-5xl mx-auto">
+          <h1 className="text-7xl md:text-7xl lg:text-8xl font-bold text-white mb-6 text-balance">Parth Nation</h1>
+          <p className="text-3xl md:text-3xl lg:text-4xl text-amber-100 mb-4 text-balance">
+            Honoring the Heart 
+            <br />of Charlton Basketball
           </p>
-          <p className="text-lg md:text-xl text-stone-200 mb-8 max-w-2xl mx-auto text-pretty">
-            We remember Parth by continuing the love he shared on and off the court.
+          <p className="text-xl md:text-xl lg:text-2xl text-stone-200 mb-8 max-w-3xl mx-auto text-pretty">
+            We remember Parth 
+            <br />by continuing the love he shared 
+            <br />on and off the court.
           </p>
           <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white text-lg px-8 py-6">
-            Sign Up for the Tournament
+            Scroll down to sign Up for the Tournament
           </Button>
         </div>
       </header>
 
-      <main id="main-content">
+      <main id="main-content" className="relative z-30">
         {/* Parth's Story Section */}
-        <section className="py-20 px-4" aria-labelledby="parth-story">
+        <section className="py-20 px-4 bg-stone-50 rounded-t-3xl" aria-labelledby="parth-story">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <Heart className="w-12 h-12 text-orange-600 mx-auto mb-4" />
@@ -54,19 +68,42 @@ export default function Home() {
               Parth was the kind of teammate who lifted everyone around him, the kind of player who made the game better
               just by being there.
             </p>
+            <blockquote className="my-8 border-l-4 border-orange-500 bg-orange-50 p-6 italic">
+              <p className="text-xl text-slate-800 mb-2 text-pretty">
+                "The closest thing Charlton had to Lebron was definitely Parth Patel. But it wasn't just the way he played. It was the way he made everyone feel like they belonged on the court."
+              </p>
+              <footer className="text-lg text-slate-600 not-italic">— Parth's Favorite Coach, Mr. Rice</footer>
+            </blockquote>
             <p className="text-xl leading-relaxed text-pretty">
               He played with passion and led with kindness. Whether he was draining a three-pointer or encouraging a
               teammate, Parth brought people together. The local basketball community knew him not just for his talent,
               but for his spirit and the genuine love he had for the game and the people who played it.
             </p>
             <p className="text-xl leading-relaxed text-pretty">
-              Parth's passing left a hole in our community that can never be filled. But his impact remains. The way he
-              played, the way he cared, the way he showed up for others continues to inspire us. We honor his memory by
+              Parth's passing in 2024 left a hole in our hearts and our community that can never be filled. 
+            </p>
+            <p className="text-xl leading-relaxed text-pretty">
+              Parth's impact remains. The way he
+              played, the way he cared, the way he showed up for others continues to inspire us. 
+            </p>
+            <p className="text-xl leading-relaxed text-pretty">
+              
+              We honor Parth's memory by
               carrying forward the values he lived by.
             </p>
-            <p className="text-2xl font-semibold text-orange-700 text-center mt-12 text-balance">
-              His game stays with us. His spirit stays with us. We play for Parth.
-            </p>
+            <div className="bg-linear-to-r from-orange-50 to-amber-50 p-12 rounded-lg border-2 border-orange-200 shadow-lg mt-12">
+              <div className="text-center space-y-4">
+                <p className="text-3xl md:text-4xl font-bold text-orange-700">
+                  His game stays with us.
+                </p>
+                <p className="text-3xl md:text-4xl font-bold text-orange-700">
+                  His spirit stays with us.
+                </p>
+                <p className="text-3xl md:text-4xl font-bold text-orange-700">
+                  We play for Parth.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -123,7 +160,7 @@ export default function Home() {
             <div className="space-y-4 text-stone-300 text-lg">
               <p className="text-pretty">
                 <strong className="text-white">Registration:</strong> Open to all community members. Teams can register
-                together or individuals can sign up and be placed on a team. Registration fee is $25 per player, with
+                together or individuals can sign up and be placed on a team. Registration fee is $10 per player, with
                 all proceeds going to local mental health services.
               </p>
               <p className="text-pretty">
@@ -149,11 +186,11 @@ export default function Home() {
             <p className="mt-4 text-stone-400">
               Questions? Contact us at{" "}
               <a
-                href="mailto:tournament@parthnation.com"
+                href="mailto:ballers@parthnation.com"
                 className="text-orange-400 hover:text-orange-300"
                 rel="noopener noreferrer"
               >
-                tournament@parthnation.com
+                ballers@parthnation.com
               </a>
             </p>
           </div>
@@ -206,28 +243,55 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="aspect-square overflow-hidden rounded-lg relative">
               <Image
-                src="/basketball-player-celebrating-with-teammates--joy-.jpg"
-                alt="Basketball players celebrating together with joy and camaraderie"
+                src="/parth_nation/photo1.png"
+                alt="Parth Patel - cherished memories on the court"
                 fill
-                className="object-cover hover:scale-105 transition-transform duration-300"
+                className="object-cover object-center hover:scale-105 transition-transform duration-300"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
             </div>
             <div className="aspect-square overflow-hidden rounded-lg relative">
               <Image
-                src="/basketball-player-smiling-on-court--warm-moment.jpg"
-                alt="Basketball player smiling warmly on the court"
+                src="/parth_nation/photo2.png"
+                alt="Parth Patel - celebrating life and basketball"
                 fill
-                className="object-cover hover:scale-105 transition-transform duration-300"
+                className="object-cover object-center hover:scale-105 transition-transform duration-300"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
             </div>
             <div className="aspect-square overflow-hidden rounded-lg relative">
               <Image
-                src="/basketball-team-huddle--unity-and-camaraderie.jpg"
-                alt="Basketball team in huddle showing unity and team spirit"
+                src="/parth_nation/photo3.png"
+                alt="Parth Patel - treasured moments with the community"
                 fill
-                className="object-cover hover:scale-105 transition-transform duration-300"
+                className="object-cover object-center hover:scale-105 transition-transform duration-300"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg relative">
+              <Image
+                src="/parth_nation/photo4.png"
+                alt="Parth Patel - memories and moments"
+                fill
+                className="object-cover object-center hover:scale-105 transition-transform duration-300"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg relative">
+              <Image
+                src="/parth_nation/photo5.png"
+                alt="Parth Patel - celebrating together"
+                fill
+                className="object-cover object-center hover:scale-105 transition-transform duration-300"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg relative">
+              <Image
+                src="/parth_nation/photo6.png"
+                alt="Parth Patel - forever in our hearts"
+                fill
+                className="object-cover object-center hover:scale-105 transition-transform duration-300"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
             </div>
@@ -293,12 +357,12 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
             <a
-              href="mailto:info@parthnation.com"
+              href="mailto:ballers@parthnation.com"
               className="flex items-center gap-2 text-orange-400 hover:text-orange-300"
               rel="noopener noreferrer"
             >
               <Mail className="w-5 h-5" />
-              info@parthnation.com
+              ballers@parthnation.com
             </a>
           </div>
           <p className="text-sm text-stone-500 text-pretty">

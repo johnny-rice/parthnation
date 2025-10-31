@@ -1,9 +1,31 @@
+"use client"
+
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Heart, Users, Calendar, MapPin, Mail } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export default function Home() {
+  const [showHeroText, setShowHeroText] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      const windowHeight = window.innerHeight
+      
+      // Hide text when scrolled past 70% of viewport height
+      // Show text when scrolled back to within 50% of viewport height
+      if (scrollPosition > windowHeight * 0.7) {
+        setShowHeroText(false)
+      } else if (scrollPosition < windowHeight * 0.5) {
+        setShowHeroText(true)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
   return (
     <div className="min-h-screen bg-linear-to-b from-stone-50 to-amber-50">
       {/* Skip to main content link for keyboard navigation */}
@@ -36,7 +58,11 @@ export default function Home() {
         >
           <source src="/parth_nation/video.mp4" type="video/mp4" />
         </video>
-        <div className="relative z-20 text-center px-6 max-w-5xl mx-auto">
+        <div 
+          className={`relative z-20 text-center px-6 max-w-5xl mx-auto transition-opacity duration-500 ${
+            showHeroText ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+        >
           <h1 className="text-7xl md:text-7xl lg:text-8xl font-bold text-white mb-6 text-balance">Parth Nation</h1>
           <p className="text-3xl md:text-3xl lg:text-4xl text-amber-100 mb-4 text-balance">
             Honoring the Heart 
@@ -72,7 +98,7 @@ export default function Home() {
               <p className="text-xl text-slate-800 mb-2 text-pretty">
                 "The closest thing Charlton had to Lebron was definitely Parth Patel. But it wasn't just the way he played. It was the way he made everyone feel like they belonged on the court."
               </p>
-              <footer className="text-lg text-slate-600 not-italic">— Parth's Favorite Coach, Mr. Rice</footer>
+              <footer className="text-lg text-slate-600 not-italic">— Parth's Favorite Coach</footer>
             </blockquote>
             <p className="text-xl leading-relaxed text-pretty">
               He played with passion and led with kindness. Whether he was draining a three-pointer or encouraging a
@@ -230,6 +256,56 @@ export default function Home() {
               </a>{" "}
               or contact local mental health services.
             </p>
+
+            {/* Kyle Cares Section */}
+            <div className="mt-16 bg-white p-8 md:p-12 rounded-lg shadow-lg border-2 border-orange-300">
+              <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 text-center text-balance">
+                Supporting Kyle Cares Inc.
+              </h3>
+              <div className="space-y-5">
+                <p className="text-xl leading-relaxed text-slate-700 text-pretty">
+                  We are proud to partner with{" "}
+                  <a
+                    href="https://kylecaresinc.org"
+                    className="text-orange-600 hover:text-orange-700 underline font-semibold"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Kyle Cares Inc.
+                  </a>
+                  , a non-profit organization dedicated to promoting open and honest communication about mental health
+                  challenges faced by teens and young adults. Founded in memory of Kyle J. Johnson, a 19-year-old college
+                  student who died by suicide in April 2018, Kyle Cares works to eliminate student self-harm and suicide by
+                  creating supportive school environments where students and caregivers can seek help without shame or
+                  hesitation.
+                </p>
+                <p className="text-xl leading-relaxed text-slate-700 text-pretty">
+                  Since 2019, Kyle Cares has invested $445,000 to bring over 310 mental health workshops, trainings, and
+                  stigma-breaking programs to New England high schools and colleges, directly engaging more than 84,000
+                  students, 2,200 faculty, 1,550 parents, and 250 coaches in mental health education and awareness building.
+                </p>
+                <div className="bg-orange-50 p-6 md:p-8 rounded-lg border-l-4 border-orange-500 mt-6">
+                  <p className="text-2xl font-bold text-orange-800 text-center text-balance">
+                    All proceeds from the Parth Nation Tournament will be donated to Kyle Cares Inc.
+                  </p>
+                  <p className="text-lg text-slate-700 text-center mt-4 text-pretty">
+                    By participating in this tournament, you are directly supporting mental health education and suicide
+                    prevention programs for teens and young adults across New England.
+                  </p>
+                </div>
+                <p className="text-base text-slate-600 text-center mt-6">
+                  Learn more about their impactful work at{" "}
+                  <a
+                    href="https://kylecaresinc.org"
+                    className="text-orange-600 hover:text-orange-700 underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    kylecaresinc.org
+                  </a>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -302,8 +378,8 @@ export default function Home() {
       {/* How to Support Section */}
       <section className="py-20 px-4" aria-labelledby="how-to-support">
         <div className="max-w-5xl mx-auto">
-          <h2 id="how-to-support" className="text-4xl md:text-5xl font-bold text-slate-900 text-center mb-12 text-balance">
-            How to Support
+          <h2 id="how-to-support" className="text-4xl md:text-5xl font-bold text-white text-center mb-12 text-balance">
+            How to Support Parth's Legacy
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="p-8 border-2 hover:border-orange-300 transition-colors">
@@ -339,8 +415,10 @@ export default function Home() {
             </Card>
           </div>
           <div className="text-center mt-12">
-            <p className="text-xl text-slate-700 text-pretty">
-              This is not about demands or obligations. It is about coming together in whatever way feels right for you.
+            <p className="text-xl text-white text-pretty">
+              This is about coming together in whatever way feels right for you.
+            </p>
+            <p className="text-xl text-white text-pretty">
               Every bit of support, big or small, helps us honor Parth and care for our community.
             </p>
           </div>

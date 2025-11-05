@@ -3,11 +3,13 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Heart, Users, Calendar, MapPin, Mail } from "lucide-react"
 import { useEffect, useState } from "react"
 
 export default function Home() {
   const [showHeroText, setShowHeroText] = useState(true)
+  const [isKyleCaresModalOpen, setIsKyleCaresModalOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,14 +76,14 @@ export default function Home() {
             <br />on and off the court.
           </p>
           <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white text-lg px-8 py-6">
-            Scroll down to sign Up for the Tournament
+            Tournament Info Below
           </Button>
         </div>
       </header>
 
-      <main id="main-content" className="relative z-30">
+      <main id="main-content" className="relative z-30 max-w-7xl mx-auto px-4">
         {/* Parth's Story Section */}
-        <section className="py-20 px-4 bg-stone-50 rounded-t-3xl" aria-labelledby="parth-story">
+        <section className="py-20 px-4 md:px-8 bg-stone-50 rounded-3xl mt-[20vh] shadow-2xl" aria-labelledby="parth-story">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <Heart className="w-12 h-12 text-orange-600 mx-auto mb-4" />
@@ -117,25 +119,31 @@ export default function Home() {
               We honor Parth's memory by
               carrying forward the values he lived by.
             </p>
-            <div className="bg-linear-to-r from-orange-50 to-amber-50 p-12 rounded-lg border-2 border-orange-200 shadow-lg mt-12">
-              <div className="text-center space-y-4">
-                <p className="text-3xl md:text-4xl font-bold text-orange-700">
-                  His game stays with us.
-                </p>
-                <p className="text-3xl md:text-4xl font-bold text-orange-700">
-                  His spirit stays with us.
-                </p>
-                <p className="text-3xl md:text-4xl font-bold text-orange-700">
-                  We play for Parth.
-                </p>
-              </div>
+          </div>
+        </div>
+      </section>
+
+      {/* We Play for Parth Section */}
+      <section className="py-20 px-4 md:px-8 mt-[20vh]" aria-label="We Play for Parth">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-linear-to-r from-orange-50 to-amber-50 p-12 md:p-16 rounded-3xl border-2 border-orange-200 shadow-2xl">
+            <div className="text-center space-y-6">
+              <p className="text-3xl md:text-4xl font-bold text-orange-700">
+                His game stays with us.
+              </p>
+              <p className="text-3xl md:text-4xl font-bold text-orange-700">
+                His spirit stays with us.
+              </p>
+              <p className="text-3xl md:text-4xl font-bold text-orange-700">
+                We play for Parth.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Tournament Section */}
-      <section className="py-20 px-4 bg-slate-900 text-white" aria-labelledby="tournament-info">
+      <section className="py-20 px-4 md:px-8 bg-slate-900 text-white mt-[20vh] rounded-3xl shadow-2xl" aria-labelledby="tournament-info">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <Users className="w-12 h-12 text-orange-500 mx-auto mb-4" />
@@ -153,7 +161,7 @@ export default function Home() {
                 <h3 className="text-2xl font-bold text-white">When</h3>
               </div>
               <p className="text-stone-300 text-lg">
-                Saturday, November 29th, 2025
+                Saturday, December 13th, 2025
                 <br />
                 12:00 PM - 3:00 PM
               </p>
@@ -165,10 +173,10 @@ export default function Home() {
                 <h3 className="text-2xl font-bold text-white">Where</h3>
               </div>
               <p className="text-stone-300 text-lg">
-                Charlton Area Basketball Court, Location TBD
+                Shepherd Hill Regional High School
                 <br />
                 <br />
-                Charlton, MA
+                Dudley, MA
               </p>
             </Card>
 
@@ -182,9 +190,9 @@ export default function Home() {
                 <br />
                 All skill levels welcome
                 <br />
-                Teams of 3 or more players
+                Teams of 3 to 4 players
                 <br />
-                Individuals will be assigned to teams
+                Individuals welcome and will be assigned to teams
               </p>
             </Card>
           </div>
@@ -232,7 +240,7 @@ export default function Home() {
       </section>
 
       {/* Mental Health Message Section */}
-      <section className="py-20 px-4 bg-amber-50" aria-labelledby="mental-health-message">
+      <section className="py-20 px-4 md:px-8 bg-amber-50 mt-[20vh] rounded-3xl shadow-2xl" aria-labelledby="mental-health-message">
         <div className="max-w-4xl mx-auto text-center">
           <Heart className="w-12 h-12 text-orange-600 mx-auto mb-6" />
           <h2 id="mental-health-message" className="text-4xl md:text-5xl font-bold text-slate-900 mb-8 text-balance">More Than Basketball</h2>
@@ -271,8 +279,8 @@ export default function Home() {
                 Supporting Kyle Cares Inc.
               </h3>
               <div className="space-y-5">
-                <p className="text-xl leading-relaxed text-slate-700 text-pretty">
-                  We are proud to partner with{" "}
+                <p className="text-xl leading-relaxed text-slate-700 text-pretty text-center">
+                  All proceeds from the Parth Nation Tournament will be donated to{" "}
                   <a
                     href="https://kylecaresinc.org"
                     className="text-orange-600 hover:text-orange-700 underline font-semibold"
@@ -281,37 +289,69 @@ export default function Home() {
                   >
                     Kyle Cares Inc.
                   </a>
-                  , a non-profit organization dedicated to promoting open and honest communication about mental health
-                  challenges faced by teens and young adults. Founded in memory of Kyle J. Johnson, a 19-year-old college
-                  student who died by suicide in April 2018, Kyle Cares works to eliminate student self-harm and suicide by
-                  creating supportive school environments where students and caregivers can seek help without shame or
-                  hesitation.
+                  , a non-profit organization dedicated to mental health education and suicide prevention for teens and young adults.
                 </p>
-                <p className="text-xl leading-relaxed text-slate-700 text-pretty">
-                  Since 2019, Kyle Cares has invested $445,000 to bring over 310 mental health workshops, trainings, and
-                  stigma-breaking programs to New England high schools and colleges, directly engaging more than 84,000
-                  students, 2,200 faculty, 1,550 parents, and 250 coaches in mental health education and awareness building.
-                </p>
-                <div className="bg-orange-50 p-6 md:p-8 rounded-lg border-l-4 border-orange-500 mt-6">
-                  <p className="text-2xl font-bold text-orange-800 text-center text-balance">
-                    All proceeds from the Parth Nation Tournament will be donated to Kyle Cares Inc.
-                  </p>
-                  <p className="text-lg text-slate-700 text-center mt-4 text-pretty">
-                    By participating in this tournament, you are directly supporting mental health education and suicide
-                    prevention programs for teens and young adults across New England.
-                  </p>
+                <div className="text-center">
+                  <Dialog open={isKyleCaresModalOpen} onOpenChange={setIsKyleCaresModalOpen}>
+                    <DialogTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        className="border-orange-500 text-orange-700 hover:bg-orange-50"
+                      >
+                        Learn More About Kyle Cares
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle className="text-2xl md:text-3xl font-bold text-slate-900">
+                          About Kyle Cares Inc.
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-4 pt-4">
+                        <p className="text-lg leading-relaxed text-slate-700">
+                          <a
+                            href="https://kylecaresinc.org"
+                            className="text-orange-600 hover:text-orange-700 underline font-semibold"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Kyle Cares Inc.
+                          </a>{" "}
+                          is a non-profit organization dedicated to promoting open and honest communication about mental health
+                          challenges faced by teens and young adults. Founded in memory of Kyle J. Johnson, a 19-year-old college
+                          student who died by suicide in April 2018, Kyle Cares works to eliminate student self-harm and suicide by
+                          creating supportive school environments where students and caregivers can seek help without shame or
+                          hesitation.
+                        </p>
+                        <p className="text-lg leading-relaxed text-slate-700">
+                          Since 2019, Kyle Cares has invested $445,000 to bring over 310 mental health workshops, trainings, and
+                          stigma-breaking programs to New England high schools and colleges, directly engaging more than 84,000
+                          students, 2,200 faculty, 1,550 parents, and 250 coaches in mental health education and awareness building.
+                        </p>
+                        <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500 mt-6">
+                          <p className="text-xl font-bold text-orange-800 text-center">
+                            All proceeds from the Parth Nation Tournament will be donated to Kyle Cares Inc.
+                          </p>
+                          <p className="text-base text-slate-700 text-center mt-3">
+                            By participating in this tournament, you are directly supporting mental health education and suicide
+                            prevention programs for teens and young adults across New England.
+                          </p>
+                        </div>
+                        <p className="text-base text-slate-600 text-center mt-4">
+                          Learn more about their impactful work at{" "}
+                          <a
+                            href="https://kylecaresinc.org"
+                            className="text-orange-600 hover:text-orange-700 underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            kylecaresinc.org
+                          </a>
+                        </p>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
-                <p className="text-base text-slate-600 text-center mt-6">
-                  Learn more about their impactful work at{" "}
-                  <a
-                    href="https://kylecaresinc.org"
-                    className="text-orange-600 hover:text-orange-700 underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    kylecaresinc.org
-                  </a>
-                </p>
               </div>
             </div>
           </div>
@@ -319,7 +359,7 @@ export default function Home() {
       </section>
 
       {/* Photo Gallery Section */}
-      <section className="py-20 px-4 bg-slate-900" aria-label="Photo Gallery">
+      <section className="py-20 px-4 md:px-8 bg-slate-900 mt-[20vh] rounded-3xl shadow-2xl" aria-label="Photo Gallery">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-12 text-balance">
             Remembering Parth
@@ -384,9 +424,9 @@ export default function Home() {
       </section>
 
       {/* How to Support Section */}
-      <section className="py-20 px-4" aria-labelledby="how-to-support">
+      <section className="py-20 px-4 md:px-8 bg-stone-50 mt-[20vh] rounded-3xl shadow-2xl" aria-labelledby="how-to-support">
         <div className="max-w-5xl mx-auto">
-          <h2 id="how-to-support" className="text-4xl md:text-5xl font-bold text-white text-center mb-12 text-balance">
+          <h2 id="how-to-support" className="text-4xl md:text-5xl font-bold text-slate-900 text-center mb-12 text-balance">
             How to Support Parth's Legacy
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
@@ -423,11 +463,11 @@ export default function Home() {
             </Card>
           </div>
           <div className="text-center mt-12">
-            <p className="text-2xl text-white text-pretty text-extrabold">
+            <p className="text-2xl text-slate-900 text-pretty font-extrabold">
               This is about coming together 
               <br />in whatever way feels right for you.
             </p>
-            <p className="text-2xl text-white text-pretty text-extrabold">
+            <p className="text-2xl text-slate-900 text-pretty font-extrabold">
               Every bit of support, 
               <br />big or small, 
               <br />helps us honor Parth 
@@ -439,7 +479,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12 px-4">
+      <footer className="bg-slate-900 text-white py-12 px-4 mt-[20vh]">
         <div className="max-w-4xl mx-auto text-center">
           <h3 className="text-2xl font-bold mb-4">Parth Nation</h3>
           <p className="text-stone-400 mb-6 text-pretty">

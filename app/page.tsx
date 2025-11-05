@@ -5,11 +5,61 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Heart, Users, Calendar, MapPin, Mail } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
+
+// Custom hook for scroll animations
+function useScrollAnimation() {
+  const ref = useRef<HTMLElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current)
+      }
+    }
+  }, [])
+
+  return { ref, isVisible }
+}
 
 export default function Home() {
   const [showHeroText, setShowHeroText] = useState(true)
   const [isKyleCaresModalOpen, setIsKyleCaresModalOpen] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [scrollBasketballPos, setScrollBasketballPos] = useState({ y: 0, rotation: 0, bounce: 0 })
+  const [isHeartMode, setIsHeartMode] = useState(false)
+
+  // Section animation refs
+  const storySection = useScrollAnimation()
+  const playForParthSection = useScrollAnimation()
+  const tournamentSection = useScrollAnimation()
+  const mentalHealthSection = useScrollAnimation()
+  const gallerySection = useScrollAnimation()
+  const supportSection = useScrollAnimation()
+
+  // Set video playback speed
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.75 // 75% speed (slower)
+    }
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,13 +73,56 @@ export default function Home() {
       } else if (scrollPosition < windowHeight * 0.5) {
         setShowHeroText(true)
       }
+
+      // Basketball animation based on scroll
+      const scrollProgress = scrollPosition / 10 // Adjust speed
+      const rotation = scrollPosition * 0.5 // Rotate as we scroll
+      const bounce = Math.sin(scrollPosition * 0.02) * 20 // Create bouncing effect
+      
+      setScrollBasketballPos({
+        y: scrollProgress,
+        rotation: rotation,
+        bounce: bounce
+      })
     }
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Handle basketball click to show heart
+  const handleBasketballClick = () => {
+    setIsHeartMode(true)
+    setTimeout(() => {
+      setIsHeartMode(false)
+    }, 1000) // Show heart for 1 second
+  }
   return (
     <div className="min-h-screen bg-linear-to-b from-stone-50 to-amber-50">
+      {/* Animated Basketball that follows scroll */}
+      <div 
+        className="fixed right-8 md:right-16 z-50 transition-all duration-500 cursor-pointer hover:scale-110 active:scale-95"
+        style={{
+          top: `${100 + scrollBasketballPos.y + scrollBasketballPos.bounce}px`,
+          transform: `rotate(${scrollBasketballPos.rotation}deg)`,
+          opacity: scrollBasketballPos.y > 0 ? 1 : 0
+        }}
+        onClick={handleBasketballClick}
+        role="button"
+        aria-label="Click for a surprise"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            handleBasketballClick()
+          }
+        }}
+      >
+        <div className={`text-5xl md:text-6xl drop-shadow-lg transition-all duration-300 ${isHeartMode ? 'scale-125' : 'scale-100'}`}>
+          {isHeartMode ? '❤️' : '🏀'}
+        </div>
+      </div>
+
       {/* Skip to main content link for keyboard navigation */}
       <a
         href="#main-content"
@@ -52,6 +145,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-linear-to-b from-slate-900/60 to-slate-900/40 z-10" />
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
@@ -83,13 +177,17 @@ export default function Home() {
 
       <main id="main-content" className="relative z-30 max-w-7xl mx-auto px-4">
         {/* Parth's Story Section */}
-        <section className="py-20 px-4 md:px-8 bg-stone-50 rounded-3xl mt-[20vh] shadow-2xl" aria-labelledby="parth-story">
+        <section 
+          ref={storySection.ref}
+          className="py-20 px-4 md:px-8 bg-stone-50 rounded-3xl mt-[20vh] shadow-2xl"
+          aria-labelledby="parth-story"
+        >
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
+          <div className={`text-center mb-12 fade-in-content ${storySection.isVisible ? 'visible' : ''}`}>
             <Heart className="w-12 h-12 text-orange-600 mx-auto mb-4" />
             <h2 id="parth-story" className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 text-balance">Parth's Story</h2>
           </div>
-          <div className="prose prose-lg max-w-none text-slate-700 space-y-6">
+          <div className={`prose prose-lg max-w-none text-slate-700 space-y-6 fade-in-content ${storySection.isVisible ? 'visible' : ''}`} style={{transitionDelay: '0.2s'}}>
             <p className="text-xl leading-relaxed text-pretty">
               Parth Patel grew up in Charlton, Massachusetts, where he became known as one of the greatest town league
               players to ever step on the court. His skill was undeniable, but what truly set him apart was his heart.
@@ -124,9 +222,13 @@ export default function Home() {
       </section>
 
       {/* We Play for Parth Section */}
-      <section className="py-20 px-4 md:px-8 mt-[20vh]" aria-label="We Play for Parth">
+      <section 
+        ref={playForParthSection.ref}
+        className="py-20 px-4 md:px-8 mt-[20vh]"
+        aria-label="We Play for Parth"
+      >
         <div className="max-w-4xl mx-auto">
-          <div className="bg-linear-to-r from-orange-50 to-amber-50 p-12 md:p-16 rounded-3xl border-2 border-orange-200 shadow-2xl">
+          <div className={`bg-linear-to-r from-orange-50 to-amber-50 p-12 md:p-16 rounded-3xl border-2 border-orange-200 shadow-2xl fade-in-content ${playForParthSection.isVisible ? 'visible' : ''}`}>
             <div className="text-center space-y-6">
               <p className="text-3xl md:text-4xl font-bold text-orange-700">
                 His game stays with us.
@@ -143,9 +245,13 @@ export default function Home() {
       </section>
 
       {/* Tournament Section */}
-      <section className="py-20 px-4 md:px-8 bg-slate-900 text-white mt-[20vh] rounded-3xl shadow-2xl" aria-labelledby="tournament-info">
+      <section 
+        ref={tournamentSection.ref}
+        className="py-20 px-4 md:px-8 bg-slate-900/90 text-white mt-[20vh] rounded-3xl shadow-2xl"
+        aria-labelledby="tournament-info"
+      >
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className={`text-center mb-16 fade-in-content ${tournamentSection.isVisible ? 'visible' : ''}`}>
             <Users className="w-12 h-12 text-orange-500 mx-auto mb-4" />
             <h2 id="tournament-info" className="text-4xl md:text-5xl font-bold mb-6 text-balance">The Parth Nation Tournament</h2>
             <p className="text-xl text-stone-300 max-w-3xl mx-auto text-pretty">
@@ -154,7 +260,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className={`grid md:grid-cols-3 gap-8 mb-12 fade-in-content ${tournamentSection.isVisible ? 'visible' : ''}`} style={{transitionDelay: '0.2s'}}>
             <Card className="bg-slate-800 border-slate-700 p-6">
               <div className="flex items-center gap-3 mb-3">
                 <Calendar className="w-6 h-6 text-orange-500 shrink-0" />
@@ -240,11 +346,17 @@ export default function Home() {
       </section>
 
       {/* Mental Health Message Section */}
-      <section className="py-20 px-4 md:px-8 bg-amber-50 mt-[20vh] rounded-3xl shadow-2xl" aria-labelledby="mental-health-message">
+      <section 
+        ref={mentalHealthSection.ref}
+        className="py-20 px-4 md:px-8 bg-amber-50 mt-[20vh] rounded-3xl shadow-2xl"
+        aria-labelledby="mental-health-message"
+      >
         <div className="max-w-4xl mx-auto text-center">
-          <Heart className="w-12 h-12 text-orange-600 mx-auto mb-6" />
-          <h2 id="mental-health-message" className="text-4xl md:text-5xl font-bold text-slate-900 mb-8 text-balance">More Than Basketball</h2>
-          <div className="space-y-6 text-lg text-slate-700">
+          <div className={`fade-in-content ${mentalHealthSection.isVisible ? 'visible' : ''}`}>
+            <Heart className="w-12 h-12 text-orange-600 mx-auto mb-6" />
+            <h2 id="mental-health-message" className="text-4xl md:text-5xl font-bold text-slate-900 mb-8 text-balance">More Than Basketball</h2>
+          </div>
+          <div className={`space-y-6 text-lg text-slate-700 fade-in-content ${mentalHealthSection.isVisible ? 'visible' : ''}`} style={{transitionDelay: '0.2s'}}>
             <p className="text-xl leading-relaxed text-pretty">
               Parth Nation is grounded in support, empathy, and community care. This tournament is not only about
               basketball. It is about coming together, looking out for each other, and recognizing how real mental
@@ -359,12 +471,16 @@ export default function Home() {
       </section>
 
       {/* Photo Gallery Section */}
-      <section className="py-20 px-4 md:px-8 bg-slate-900 mt-[20vh] rounded-3xl shadow-2xl" aria-label="Photo Gallery">
+      <section 
+        ref={gallerySection.ref}
+        className="py-20 px-4 md:px-8 bg-slate-900 mt-[20vh] rounded-3xl shadow-2xl"
+        aria-label="Photo Gallery"
+      >
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-12 text-balance">
+          <h2 className={`text-4xl md:text-5xl font-bold text-white text-center mb-12 text-balance fade-in-content ${gallerySection.isVisible ? 'visible' : ''}`}>
             Remembering Parth
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className={`grid md:grid-cols-3 gap-6 fade-in-content ${gallerySection.isVisible ? 'visible' : ''}`} style={{transitionDelay: '0.2s'}}>
             <div className="aspect-square overflow-hidden rounded-lg relative">
               <Image
                 src="/parth_nation/photo1.png"
@@ -424,12 +540,16 @@ export default function Home() {
       </section>
 
       {/* How to Support Section */}
-      <section className="py-20 px-4 md:px-8 bg-stone-50 mt-[20vh] rounded-3xl shadow-2xl" aria-labelledby="how-to-support">
+      <section 
+        ref={supportSection.ref}
+        className="py-20 px-4 md:px-8 bg-stone-50 mt-[20vh] rounded-3xl shadow-2xl"
+        aria-labelledby="how-to-support"
+      >
         <div className="max-w-5xl mx-auto">
-          <h2 id="how-to-support" className="text-4xl md:text-5xl font-bold text-slate-900 text-center mb-12 text-balance">
+          <h2 id="how-to-support" className={`text-4xl md:text-5xl font-bold text-slate-900 text-center mb-12 text-balance fade-in-content ${supportSection.isVisible ? 'visible' : ''}`}>
             How to Support Parth's Legacy
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className={`grid md:grid-cols-2 gap-8 fade-in-content ${supportSection.isVisible ? 'visible' : ''}`} style={{transitionDelay: '0.2s'}}>
             <Card className="p-8 border-2 hover:border-orange-300 transition-colors">
               <h3 className="text-2xl font-bold mb-4 text-slate-900">Play in the Tournament</h3>
               <p className="text-slate-700 text-lg text-pretty">
@@ -462,7 +582,7 @@ export default function Home() {
               </p>
             </Card>
           </div>
-          <div className="text-center mt-12">
+          <div className={`text-center mt-12 fade-in-content ${supportSection.isVisible ? 'visible' : ''}`} style={{transitionDelay: '0.4s'}}>
             <p className="text-2xl text-slate-900 text-pretty font-extrabold">
               This is about coming together 
               <br />in whatever way feels right for you.

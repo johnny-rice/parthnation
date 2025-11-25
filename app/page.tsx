@@ -132,7 +132,7 @@ export default function Home() {
       </a>
 
       {/* Header Section */}
-      <header className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+      <header className="fixed top-0 left-0 right-0 h-screen flex items-center justify-center overflow-hidden z-0">
         {/* Repeating background image for larger screens */}
         <div 
           className="absolute inset-0 hidden md:block"
@@ -175,7 +175,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main id="main-content" className="relative z-30 max-w-7xl mx-auto px-4">
+      <main id="main-content" className="relative z-30 max-w-7xl mx-auto px-4 pt-[100vh]">
         {/* Parth's Story Section */}
         <section 
           ref={storySection.ref}
@@ -267,9 +267,7 @@ export default function Home() {
                 <h3 className="text-2xl font-bold text-white">When</h3>
               </div>
               <p className="text-stone-300 text-lg">
-                Saturday, December 13th, 2025
-                <br />
-                12:00 PM - 3:00 PM
+                TBD
               </p>
             </Card>
 
@@ -313,7 +311,7 @@ export default function Home() {
               </p>
               <p className="text-pretty">
                 <strong className="text-white">Schedule:</strong> Games run throughout the time of the tournament. 
-                Finals and awards ceremony at 2:45 PM.
+                Finals and awards ceremony time TBD.
               </p>
               <p className="text-pretty">
                 <strong className="text-white">Purpose:</strong> This tournament is about more than basketball. We are
@@ -328,9 +326,11 @@ export default function Home() {
           </Card>
 
           <div className="text-center">
-            <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white text-lg px-8 py-6">
-              Register Now
-            </Button>
+            <a href="https://ramsrise.com" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white text-lg px-8 py-6">
+                Register Now
+              </Button>
+            </a>
             <p className="mt-4 text-stone-400">
               Questions? Contact us at{" "}
               <a
@@ -552,26 +552,41 @@ export default function Home() {
           <div className={`grid md:grid-cols-2 gap-8 fade-in-content ${supportSection.isVisible ? 'visible' : ''}`} style={{transitionDelay: '0.2s'}}>
             <Card className="p-8 border-2 hover:border-orange-300 transition-colors">
               <h3 className="text-2xl font-bold mb-4 text-slate-900">Play in the Tournament</h3>
-              <p className="text-slate-700 text-lg text-pretty">
+              <p className="text-slate-700 text-lg text-pretty mb-4">
                 Register your team or sign up as an individual. Every player helps us raise funds and honor Parth's love
                 for the game.
               </p>
+              <a href="https://ramsrise.com" target="_blank" rel="noopener noreferrer">
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white w-full">
+                  Register Now
+                </Button>
+              </a>
             </Card>
 
             <Card className="p-8 border-2 hover:border-orange-300 transition-colors">
               <h3 className="text-2xl font-bold mb-4 text-slate-900">Make a Donation</h3>
-              <p className="text-slate-700 text-lg text-pretty">
+              <p className="text-slate-700 text-lg text-pretty mb-4">
                 Can't make it to the tournament? You can still support mental health services in Parth's name through a
                 direct donation.
               </p>
+              <a href="https://ramsrise.com" target="_blank" rel="noopener noreferrer">
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white w-full">
+                  Donate Now
+                </Button>
+              </a>
             </Card>
 
             <Card className="p-8 border-2 hover:border-orange-300 transition-colors">
               <h3 className="text-2xl font-bold mb-4 text-slate-900">Volunteer</h3>
-              <p className="text-slate-700 text-lg text-pretty">
+              <p className="text-slate-700 text-lg text-pretty mb-4">
                 We need help with setup, scorekeeping, food service, and more. Your time and energy make this event
                 possible.
               </p>
+              <a href="https://ramsrise.com" target="_blank" rel="noopener noreferrer">
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white w-full">
+                  Sign Up to Volunteer
+                </Button>
+              </a>
             </Card>
 
             <Card className="p-8 border-2 hover:border-orange-300 transition-colors">
@@ -599,7 +614,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12 px-4 mt-[20vh]">
+      <footer className="bg-slate-900 text-white py-12 px-4 mt-[20vh] mb-[100vh]">
         <div className="max-w-4xl mx-auto text-center">
           <h3 className="text-2xl font-bold mb-4">Parth Nation</h3>
           <p className="text-stone-400 mb-6 text-pretty">

@@ -52,13 +52,14 @@ export const metadata: Metadata = {
     siteName: "Parth Nation",
     title: "Parth Nation - Honoring the Heart of Charlton Basketball",
     description:
-      "Join us for a community basketball tournament honoring Parth Patel's memory and raising funds for mental health awareness. June 14, 2025 in Charlton, MA.",
+      "Join us for a community basketball tournament honoring Parth Patel's memory and raising funds for mental health awareness. December 13, 2025 in Dudley, MA.",
     images: [
       {
-        url: "/basketball-player-in-action-on-outdoor-court--dyna.jpg",
+        url: "/api/og",
         width: 1200,
         height: 630,
         alt: "Parth Nation Basketball Tournament",
+        type: "image/svg+xml",
       },
     ],
   },
@@ -67,7 +68,7 @@ export const metadata: Metadata = {
     title: "Parth Nation - Honoring the Heart of Charlton Basketball",
     description:
       "Join us for a community basketball tournament honoring Parth Patel's memory and raising funds for mental health awareness.",
-    images: ["/basketball-player-in-action-on-outdoor-court--dyna.jpg"],
+    images: ["/api/og"],
     creator: "@parthnation", // Update with actual Twitter handle if available
     site: "@parthnation", // Update with actual Twitter handle if available
   },
